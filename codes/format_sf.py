@@ -4,7 +4,7 @@
 import openpyxl
 import os
 
-src_path = '../data/sf/'
+src_path = '../data/src/sf/'
 xlfs = [x for x in os.listdir(src_path) if os.path.splitext(x)[1] == '.xlsx'] # 罗列目录内所有xlsx文件
 print('需要统计',len(xlfs) , '个表格')
 
@@ -12,6 +12,7 @@ xl0 = xlfs[0]
 data0 = []#复制表头数据
 wb0 = openpyxl.load_workbook(filename = src_path+xl0)
 ws0 = wb0.active
+#print(ws0.max_column)
 for i in range(1,ws0.max_column+1):
     data0.append(ws0.cell(row = 1,column = i).value)
 #print('表头',data0)
@@ -40,16 +41,13 @@ ws.title = '汇总'
 for n_row in range(1,len(data)+1):#写入数据
     for n_col in range(1,len(data[n_row-1])+1):
         ws.cell(row=n_row,column=n_col,value=str(data[n_row-1][n_col-1]))
-wb.save(filename='../data/s总表.xlsx')#保存xlsx
+wb.save(filename='../data/tmp_sf.xlsx')#保存xlsx
 print ('汇总完成')
 
 
-src_xlsx_path = r'../data/s总表.xlsx'
+src_xlsx_path = r'../data/tmp_sf.xlsx'
 dst_xlsx_path = r'../data/bak.xlsx' # this is template of upload
 
-key_list = [ '梁山街道', '水泊街道', '黑虎庙镇', '赵堌堆乡', '拳铺镇', \
-             '韩垓镇', '小路口镇', '马营镇', '寿张集镇', '小安山镇', \
-             '大路口乡', '馆驿镇', '韩岗镇']
 key_dict = { '赵固堆派出所':'赵堌堆乡', 
              '馆驿派出所':'馆驿镇', 
              '水泊派出所':'水泊街道', 
@@ -109,4 +107,4 @@ for rid in range(2,rows+1):
     
     
 
-wb_dst.save('../data/p-公安局随访数据.xlsx')
+wb_dst.save('../data/dst/sf.xlsx')

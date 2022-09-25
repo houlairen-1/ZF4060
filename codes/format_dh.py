@@ -4,7 +4,7 @@
 import openpyxl
 import os
 
-src_path = '../data/src/'
+src_path = '../data/src/dh/'
 
 xlfs = [x for x in os.listdir(src_path) if os.path.splitext(x)[1] == '.xlsx'] # 罗列目录内所有xlsx文件
 print('需要统计',len(xlfs) , '个表格')
@@ -41,11 +41,11 @@ ws.title = '汇总'
 for n_row in range(1,len(data)+1):#写入数据
     for n_col in range(1,len(data[n_row-1])+1):
         ws.cell(row=n_row,column=n_col,value=str(data[n_row-1][n_col-1]))
-wb.save(filename='../data/a总表.xlsx')#保存xlsx
+wb.save(filename='../data/tmp_dh.xlsx')#保存xlsx
 print ('汇总完成')
 
 
-src_xlsx_path = r'../data/a总表.xlsx'
+src_xlsx_path = r'../data/tmp_dh.xlsx'
 dst_xlsx_path = r'../data/bak.xlsx'
 
 wb_src = openpyxl.load_workbook(src_xlsx_path)
@@ -73,4 +73,4 @@ for rid in range(2,rows+1):
     sheet_dst.cell(rid+2,12).value = sheet_src.cell(rid,31).value
     sheet_dst.cell(rid+2,18).value = sheet_src.cell(rid,32).value
 
-wb_dst.save('../data/ret-电话排查.xlsx')
+wb_dst.save('../data/dst/dh.xlsx')

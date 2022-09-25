@@ -6,7 +6,7 @@
 ## codes
 
 - format_jnbb.py
-  source:       data/src/src.xlsx
+  source:       data/src/jnbb_src.xlsx
   temporary:    NULL
   destination:  data/dst/jnbb.xlsx
 

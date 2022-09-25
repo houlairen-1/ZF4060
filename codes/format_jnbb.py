@@ -3,7 +3,7 @@
 
 import openpyxl
 
-src_xlsx_path = r'../data/src.xlsx'
+src_xlsx_path = r'../data/src/jnbb_src.xlsx'
 dst_xlsx_path = r'../data/bak.xlsx'
 
 wb_src = openpyxl.load_workbook(src_xlsx_path)
@@ -28,4 +28,4 @@ for rid in range(4,rows+1):
 # for cell in cells:
 #     print(cell.value)
 
-wb_dst.save('../data/jnbb_济宁报备登记表.xlsx')
+wb_dst.save('../data/dst/jnbb.xlsx')
