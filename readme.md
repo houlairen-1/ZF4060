@@ -22,5 +22,12 @@
 
 ## data
 
-- bak.xlsx
-  This is the template of destination which can be uploaded.
+- [x] bak.xlsx
+      This is the template of destination which can be uploaded.
+
+- src
+  - jnbb_src.xlsx
+  - dh
+  - sf
+
+- dst
