@@ -5,6 +5,9 @@
 
 ## codes
 
+@2022-09-28 已转换为 windows `exe`可执行程序。
+不再需要 windows 和 linux 虚拟机之间文件互传。
+
 - format_jnbb.py
   source:       data/src/jnbb_src.xlsx
   temporary:    NULL
