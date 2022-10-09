@@ -5,7 +5,9 @@ import openpyxl
 import os
 import re
 
+xlsx_path = r'../data/template_risk.xlsx'
 fn_path = '../data/src/fxq/test.txt'
+
 fn_list = []
 stack = [] #风险区栈 拼接省-市-县
 pattern = r'(.+)\(\d+\)个'
@@ -26,6 +28,11 @@ province = [ '河北省', '山西省', '辽宁省', '吉林省',
 municipality = {'天津市', '上海市', '重庆市'}
 # 当前是重庆郊县发生疫情，重庆市暂时不用判断
 
+# open file
+
+wb = openpyxl.load_workbook(xlsx_path)
+sheet = wb['Sheet1']
+rid = 2 # sheet record id
 
 with open(fn_path, 'r') as f:
     fn_list = f.readlines()
@@ -73,3 +80,9 @@ for value in fn_list:
     #print(value)
     
     print('%s\t%s\t%s' %(stack[-2], stack[-1], value) ,end='')
+    rid = rid+1
+    sheet.cell(rid, 2).value = stack[-2] # col B
+    sheet.cell(rid, 3).value = stack[-1] # col C
+    sheet.cell(rid, 4).value = value # col D
+
+wb.save('../data/dst/risk.xlsx')
