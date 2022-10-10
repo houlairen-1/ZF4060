@@ -11,9 +11,9 @@ xlsx_path = r'../data/src/fxq_src.xlsx'
 fn_path = '../data/dst/fxq.txt'
 log_path = '../fxq.log'
 
-
+log = open(log_path, encoding='utf-8', mode='a')
 logging.basicConfig(level=logging.ERROR,
-                    filename=log_path,
+                    stream = log,
                     format="%(asctime)s - %(name)s - %(levelname)-9s - %(filename)-8s : %(lineno)s line - %(message)s",
                     datefmt="%Y-%m-%d %H:%M:%S"
                     )
