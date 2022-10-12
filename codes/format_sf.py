@@ -101,7 +101,7 @@ for rid in range(2,rows+1):
     sheet_dst.cell(tid,9).value = sheet_src.cell(rid,9).value
     sheet_dst.cell(tid,18).value = sheet_src.cell(rid,10).value
     sheet_dst.cell(tid,17).value = sheet_src.cell(rid,11).value
-    sheet_dst.cell(tid,23).value = sheet_src.cell(rid,12).value
+    sheet_dst.cell(tid,23).value = sheet_src.cell(rid,12).value # 最新核算检测时间
     sheet_dst.cell(tid,27).value = sheet_src.cell(rid,13).value
 
     

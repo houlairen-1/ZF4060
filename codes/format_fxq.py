@@ -44,6 +44,7 @@ with open(fn_path, 'w') as f:
             continue
         county = county.replace('；','\n\t\t\t')
         county = county.replace('、','\n\t\t\t')
+        county = county.replace('，','\n\t\t\t')
         #print('中风险\t%s\t%s\t%s\n' 
         #      %( cur_province, city, county ) )
 
