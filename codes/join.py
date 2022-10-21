@@ -1,6 +1,13 @@
 #!/usr/local/bin/python3
 #_*_ coding:utf-8 _*_
 
+################################################
+#
+# 2022-10-21 处理北京
+#
+################################################
+
+
 import openpyxl
 import os
 import re
@@ -22,14 +29,15 @@ province = [ '河北省', '山西省', '辽宁省', '吉林省',
              '内蒙古自治区', '广西壮族自治区', 
              '西藏自治区', '宁夏回族自治区', 
              '新疆维吾尔自治区',
-             '香港特别行政区', '澳门特别行政区',
-             '北京市' ]
+             '香港特别行政区', '澳门特别行政区' ]
 
 municipality = {'天津市', '上海市', '重庆市'}
 # 当前是重庆郊县发生疫情，重庆市暂时不用判断
 
-# open file
+# normal
+capital = { '北京市' }
 
+# open file
 wb = openpyxl.load_workbook(xlsx_path)
 sheet = wb['Sheet1']
 rid = 2 # sheet record id
@@ -42,11 +50,11 @@ with open(fn_path, 'r') as f:
 for value in fn_list:
     value = value.strip('\n')
     ret = re.search(pattern, value)
-    if ret:
+    if ret: # 1st if : 处理带括号的数据
         # 判断省和市
         key = ret.group(1)
-        if key in province:
-            if len(stack)==0:
+        if key in province: # 2nd if : 判断省
+            if len(stack)==0: # 3rd if : 判断是否到了下一省份
                 #print(key)
                 stack.append(key)
             else:
@@ -57,7 +65,7 @@ for value in fn_list:
                 stack.pop() #弹出市
                 stack.pop() #弹出省
                 stack.append(key) #new province in stack
-        elif key in municipality:
+        elif key in municipality: # 2nd if : 判断直辖市
             if len(stack)==0:
                 #print(key)
                 stack.append(key)
@@ -72,18 +80,43 @@ for value in fn_list:
                 stack.append(key) #new province in stack
                 stack.append(key) #new province in stack
             
-        else:
-            if len(stack) == 2:
+        elif key in capital: # 2nd if : 判断直辖市
+            if len(stack)==0:
+                #print(key)
+                stack.append(key)
+                stack.append(key)
+            else:
+                #到了下一省份
+                if len(stack) != 2:
+                    print('stack Error!%s' %(stack) )
+                    break
+                stack.pop() #弹出市
+                stack.pop() #弹出省
+                stack.append(key) 
+                stack.append(key) 
+        else: # 这是市级行政区
+            if len(stack) == 2 and stack[-2] not in capital:
                 stack.pop()
             #print('\t%s' %(key) )
-            stack.append(key)
+            
+            if stack[-1] not in capital:
+                stack.append(key)
+            else:
+                county = key
+                #print('key is %s' %(key))
         continue
     #print(value)
     
-    print('%s\t%s\t%s' %(stack[-2], stack[-1], value) )
+
     rid = rid+1
     sheet.cell(rid, 2).value = stack[-2] # col B
     sheet.cell(rid, 3).value = stack[-1] # col C
-    sheet.cell(rid, 4).value = value # col D
+    if stack[-2] in capital:
+        sheet.cell(rid, 4).value = county # col D
+        print('%s\t%s\t%s' %(stack[-2], stack[-1], county) )
+    else:
+        sheet.cell(rid, 4).value = value # col D
+        print('%s\t%s\t%s' %(stack[-2], stack[-1], value) )
+
 
 wb.save('../data/dst/risk.xlsx')
