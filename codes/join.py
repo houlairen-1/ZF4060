@@ -40,6 +40,7 @@ with open(fn_path, 'r') as f:
     #print(fn_list)
     
 for value in fn_list:
+    value = value.strip('\n')
     ret = re.search(pattern, value)
     if ret:
         # 判断省和市
@@ -79,7 +80,7 @@ for value in fn_list:
         continue
     #print(value)
     
-    print('%s\t%s\t%s' %(stack[-2], stack[-1], value) ,end='')
+    print('%s\t%s\t%s' %(stack[-2], stack[-1], value) )
     rid = rid+1
     sheet.cell(rid, 2).value = stack[-2] # col B
     sheet.cell(rid, 3).value = stack[-1] # col C
