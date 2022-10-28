@@ -5,6 +5,7 @@ codes/format_jnbb.py
 codes/format_dh.py
 codes/format_sf.py
 codes/format_fxq.py
+codes/format_gwy.py
 data/bak.xlsx
 data/template_risk.xlsx
 readme.md
