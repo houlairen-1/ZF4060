@@ -136,4 +136,4 @@ def join():
                                              today.month,
                                              today.day)
         wb.save('../data/dst/%s' %(dst_fn) )
-        print('%s has generated. \tTotal %d records.' %(dst_fn, rid) )
+        print('%s has generated. \tTotal %d records.' %(dst_fn, rid-2) )
