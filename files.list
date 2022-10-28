@@ -1,4 +1,5 @@
 codes/auto.sh
+codes/docx2txt.py
 codes/join.py
 codes/format_jnbb.py
 codes/format_dh.py
