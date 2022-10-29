@@ -23,9 +23,31 @@
   temporary:    data/tmp_sf.xlsx
   destination:  data/dst/sf.xlsx
 
+- format_fxq.py
+  source:       data/src/fxq_src.xlsx
+  destination:  data/dst/fxq.xlsx
+
+- format_fxq_gwy.py
+  source:       data/src/fxq/docx/*.docx [unique]
+  temporary:    data/src/fxq/today.txt
+                data/src/fxq/high.txt   # 高风险区
+                data/src/fxq/mid.txt    # 中风险区
+  destination:  data/dst/高风险_<now()>.xlsx
+                data/dst/中风险_<now()>.xlsx
+
+- docx2txt.py
+  source:       data/src/fxq/docx/*.docx [unique]
+  temporary:    data/src/fxq/today.txt
+  destination:  data/src/fxq/high.txt   # 高风险区
+                data/src/fxq/mid.txt    # 中风险区
+
 - join.py 
   拼接省市县
-  
+  source:       data/src/fxq/high.txt   # 高风险区
+                data/src/fxq/mid.txt    # 中风险区
+  destination:  data/dst/高风险_<now()>.xlsx
+                data/dst/中风险_<now()>.xlsx
+
 ## data
 
 - [x] bak.xlsx
@@ -35,5 +57,10 @@
   - jnbb_src.xlsx
   - dh
   - sf
+  - fxq
+    - docx
+      fn2022年10月29日.docx
+    - high.txt
+    - mid.txt
 
 - dst
