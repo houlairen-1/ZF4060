@@ -42,9 +42,14 @@ with open(fn_path, 'w') as f:
             print('[ERROR]county is none:{}\t{}\t{}\n'.format(cur_province, city, county))
             logging.error('county is none:{}\t{}\t{}\n'.format(cur_province, city, county))
             continue
+
+        # why do many splits exist ?
+        # Jining lacked rules. 中文字符和英文字符都来一遍吧！
         county = county.replace('；','\n\t\t\t')
+        county = county.replace(';','\n\t\t\t')
         county = county.replace('、','\n\t\t\t')
         county = county.replace('，','\n\t\t\t')
+        county = county.replace(',','\n\t\t\t')
         #print('中风险\t%s\t%s\t%s\n' 
         #      %( cur_province, city, county ) )
 
