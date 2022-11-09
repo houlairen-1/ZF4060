@@ -129,11 +129,36 @@ def join():
             else:
                 sheet.cell(rid, 4).value = value # col D
                 #print('%s\t%s\t%s' %(stack[-2], stack[-1], value) )
+
+
+        # final delete duplicate lines of excel
+        # in fact, only Beijing. it is the problem of history.
+        wb_del = openpyxl.load_workbook(xlsx_path)
+        sheet_del = wb_del['Sheet1']
+        rid = 2 # sheet record id
+
+        for i in range(3, sheet.max_row+1):
+
+            if sheet.cell(i, 2).value == sheet.cell(i-1,2).value and sheet.cell(i, 3).value == sheet.cell(i-1,3).value and sheet.cell(i, 4).value == sheet.cell(i-1,4).value:
+                #                print('\t%s\t%s\t%s\t%s' %(sheet.cell(i,1).value,
+                #                                         sheet.cell(i,2).value,
+                #                                         sheet.cell(i,3).value,
+                #                                         sheet.cell(i,4).value ))
+                continue
+
+            rid = rid + 1
+            sheet_del.cell(rid, 1).value = sheet.cell(i, 1).value
+            sheet_del.cell(rid, 2).value = sheet.cell(i, 2).value
+            sheet_del.cell(rid, 3).value = sheet.cell(i, 3).value
+            sheet_del.cell(rid, 4).value = sheet.cell(i, 4).value
+            
+            
     
         today = datetime.datetime.now()
         dst_fn = '%s_%04d-%02d-%02d.xlsx' %( txt_arr[tid][0],
                                              today.year,
                                              today.month,
                                              today.day)
-        wb.save('../data/dst/%s' %(dst_fn) )
+        wb_del.save('../data/dst/%s' %(dst_fn) )
+        print('\n\t Delete duplicate %d lines.' %(sheet.max_row-rid) )
         print('%s has generated. \tTotal %d records.' %(dst_fn, rid-2) )

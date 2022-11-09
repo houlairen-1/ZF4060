@@ -7,6 +7,8 @@
 
 @2022-09-28 已转换为 windows `exe`可执行程序。
 不再需要 windows 和 linux 虚拟机之间文件互传。
+@2022-11-09 风险区：前期已经实现将国务院每日更新的docx文档，整理成表格。
+现进行后期处理——去除重复项。
 
 - format_jnbb.py
   source:       data/src/jnbb_src.xlsx
