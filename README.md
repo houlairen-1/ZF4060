@@ -1,6 +1,12 @@
 
 # loc: ZF4060
 
+## Require
+
+   - openpyxl
+   - selenium
+   - python-docx
+
 ## 多渠道
 
 ## codes
