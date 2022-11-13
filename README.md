@@ -27,6 +27,12 @@
 
 - join.py 
   拼接省市县
+
+- 2022-11-11
+  中央发布新的政策，国务院客户端不再提供“一键复制”功。
+  try selenium.
+
+  - refer : https://chromedriver.chromium.org/
   
 ## data
 
