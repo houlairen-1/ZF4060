@@ -11,7 +11,7 @@ import re
 MAX_PAGES = 100
 NUM_BUTTONS = 9
 
-browser = webdriver.Chrome(executable_path="../drivers/chromedriver.exe")
+browser = webdriver.Chrome(executable_path="../drivers/chromedriver")
 browser.get('https://bmfw.www.gov.cn/yqfxdjcx/risk.html')
 browser.implicitly_wait(60)
 #Wait(browser, 60).until(
