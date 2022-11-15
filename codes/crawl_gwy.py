@@ -26,7 +26,8 @@ options.add_argument('--ignore-ssl-errors')
 # ignore useless log
 options.add_experimental_option('excludeSwitches', ['enable-automation', 'enable-logging'])
 
-ser = Service("../drivers/chromedriver.exe") #windows
+#ser = Service("../drivers/chromedriver.exe") #windows
+ser = Service("../drivers/chromedriver") # macos
 browser = webdriver.Chrome(service=ser, options=options)
 browser.get('https://bmfw.www.gov.cn/yqfxdjcx/risk.html')
 browser.implicitly_wait(5)
@@ -34,7 +35,7 @@ browser.implicitly_wait(5)
 #    Expect.presence_of_element_located((By.CLASS_NAME, "risk-info-table"))
 #)
 
-risk_levels_list = [ '高风险', '中风险' ]
+risk_levels_list = [ '高风险', '低风险' ]
 
 for level in risk_levels_list:
     f = open('../data/src/fxq/crawl_%s.txt' %(level), 'w')
@@ -48,7 +49,8 @@ for level in risk_levels_list:
     rid = 2 # sheet record id
     
     # eg.中风险区 （2155）
-    level_pattern = ' %s区 （\d+）' %(level)
+    #level_pattern = ' %s区 （\d+）' %(level)
+    level_pattern = ' %s区 .*' %(level)
     risk_levels = browser.find_elements(By.CLASS_NAME, 'tabs-header-tab')
     find_level = False
     for lid in range( len(risk_levels) ):
