@@ -17,9 +17,13 @@ import datetime
 
 def docx2txt():
     today = datetime.datetime.now()
+    #today_pattern = '.*{}年{}月{}日.*\.docx'.format(today.year,
+    #                                                today.month,
+    #                                                today.day)
     today_pattern = '.*{}年{}月{}日.*\.docx'.format(today.year,
                                                     today.month,
                                                     today.day)
+
     # find goal: today's docx
     docx_dir = '../data/src/fxq/docx/'
     txt_dir = '../data/src/fxq/'
@@ -40,33 +44,35 @@ def docx2txt():
     with open(txt_path, 'w') as f:
         duplicate = ''
         duplicate_id = 0
+        uid = 0
         for p in file_h.paragraphs:
             #print(p.text)
             # 根据空格切割
             ret = p.text.split(' ')
             value = ret[0]
-    
+            
             # 去重
             if len(value) == 0 or value == duplicate:
                 duplicate_id = duplicate_id+1
                 continue
             duplicate = value
+            uid = uid+1
             f.write('%s\n' %(value) )
-        print('Have writen to %s\n \t delete-duplicate-lines:\t%04d lines'
-              %(txt_path, duplicate_id) )
+        print('Have writen to %s\n\tdelete-duplicate-lines:\t%04d lines.\n\tunique:%06d'
+              %(txt_path, duplicate_id, uid) )
     
     
     # 将中高风险区分开
+    # today.txt => high.txt || mid.txt
     txt_arr = [ ['高风险', 'high.txt'],
-                ['中风险', 'mid.txt'],
                 ['低风险', 'low.txt'] ]
     
     with open(txt_path, 'r') as f:
         contents = f.readlines()
     
     for tid in range(len(txt_arr)-1):
-        txt_start_pattern = '^%s区\(\d+\)个' %txt_arr[tid][0]
-        txt_end_pattern = '^%s区\(\d+\)个' %txt_arr[tid+1][0]
+        txt_start_pattern = '^%s区\(\d+个\)' %(txt_arr[tid][0])
+        txt_end_pattern = '^%s区\(\d+个\)' %(txt_arr[tid+1][0])
         txt_sub_path = txt_dir + txt_arr[tid][1]
         with open(txt_sub_path, 'w') as f:
             start_f = False

@@ -35,8 +35,7 @@ def join():
     # normal
     capital = { '北京市' }
     
-    txt_arr = [ ['高风险', 'high.txt'],
-                ['中风险', 'mid.txt'] ]
+    txt_arr = [ ['高风险', 'high.txt'] ]
     
     for tid in range(len(txt_arr)):
     
@@ -139,11 +138,9 @@ def join():
 
         for i in range(3, sheet.max_row+1):
 
-            if sheet.cell(i, 2).value == sheet.cell(i-1,2).value and sheet.cell(i, 3).value == sheet.cell(i-1,3).value and sheet.cell(i, 4).value == sheet.cell(i-1,4).value:
-                #                print('\t%s\t%s\t%s\t%s' %(sheet.cell(i,1).value,
-                #                                         sheet.cell(i,2).value,
-                #                                         sheet.cell(i,3).value,
-                #                                         sheet.cell(i,4).value ))
+            if sheet.cell(i, 2).value == sheet.cell(i-1,2).value and\
+               sheet.cell(i, 3).value == sheet.cell(i-1,3).value and\
+               sheet.cell(i, 4).value == sheet.cell(i-1,4).value:
                 continue
 
             rid = rid + 1
